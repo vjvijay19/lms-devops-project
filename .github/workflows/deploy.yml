@@ -1,4 +1,4 @@
-name: LMS CI/CD 
+name: LMS CI/CD Pipeline
 
 on:
   push:
@@ -9,7 +9,6 @@ jobs:
   build-and-push:
     runs-on: ubuntu-latest
     
-    # Force the runner to use Node 24 for all actions to fix the deprecation warning
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
 
@@ -35,9 +34,9 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
 
-      # Build Docker image (Reverted paths to standard context format)
+      # Build Docker image (Fixed with capitalized Backend path)
       - name: Build Docker Image
-        run: docker build -t lms-backend -f backend/Dockerfile backend
+        run: docker build -t lms-backend -f Backend/Dockerfile Backend
 
       # Tag image
       - name: Tag Docker Image
